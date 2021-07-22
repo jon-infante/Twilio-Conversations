@@ -3,7 +3,6 @@ from flask import Flask, request, redirect, render_template
 import dotenv
 from twilio.twiml.messaging_response import MessagingResponse
 from twilio.rest import Client
-
 dotenv.load_dotenv('.env')
 
 app = Flask(__name__)
@@ -25,9 +24,9 @@ def incoming_sms():
 
     # Determine the right reply for this message
     if body == '1':
-        resp.message("Confirmed")
+        resp.message("Your appointment is confirmed")
     else:
-        resp.message("Please type a valid response.")
+        resp.message("Please type a valid response. (Press 1 to confirm)")
 
     return str(resp)
 
