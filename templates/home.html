@@ -1,0 +1,22 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container text-light">
+<div class="row">
+    <div class="col-md-12" style="padding-top: 5%">
+        <h1>The Scarlett Letter</h1>
+            <div class="text-center" style="padding-top: 25%">
+                <h2>{{ tweet }}</h2>
+                <a href="/" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">New Sentence</a>
+                <div class="" style= "padding-top: 2%">
+                <form action="/tweet" method="post">
+                    <input type="hidden" name="sentence" value="{{ tweet }}">
+                    <button type="submit">Tweet this</button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

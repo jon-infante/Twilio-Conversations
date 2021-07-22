@@ -1,27 +1,35 @@
 import os
-from flask import Flask
-from twilio.rest import Client
+from flask import Flask, request, redirect, render_template
 import dotenv
+from twilio.twiml.messaging_response import MessagingResponse
+from twilio.rest import Client
 
 dotenv.load_dotenv('.env')
 
-
 app = Flask(__name__)
 
-account_sid = os.environ.get['TWILIO_ACCOUNT_SID']
-auth_token = os.environ.get['TWILIO_AUTH_TOKEN']
+@app.route('/')
+def index():
+    """Return Homepage"""
+    return render_template('home.html')
 
-client = Client(account_sid, auth_token)
+@app.route("/sms", methods=['GET', 'POST'])
+def incoming_sms():
+    """Send a dynamic reply to an incoming text message"""
+    # Get the message the user sent our Twilio number
+    body = request.values.get('Body', None)
 
-conversation = client.conversations \
-                     .conversations \
-                     .create(friendly_name='My First Conversation')
+    # Start our TwiML response
+    resp = MessagingResponse()
 
-print(conversation.sid)
+    # Determine the right reply for this message
+    if body == '1':
+        resp.message("Confirmed")
+    else:
+        resp.message("Please type a valid response.")
 
-@app.route("/")
-def hello():
-  return "Hello World!"
+    return str(resp)
+
 
 if __name__ == "__main__":
-  app.run()
+    app.run(debug=True)
