@@ -10,8 +10,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+    click = 'click'
     """Return Homepage"""
-    return render_template('home.html')
+    return render_template('home.html', click=click)
 
 @app.route("/sms", methods=['GET', 'POST'])
 def incoming_sms():
@@ -32,4 +33,4 @@ def incoming_sms():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=os.environ.get('PORT', 5000))
