@@ -48,4 +48,4 @@ if __name__ == '__main__':
     auth_token = os.environ['TWILIO_AUTH_TOKEN']
     words = ['banana', 'apple', 'watermelon', 'cherry', 'grape']
     interface = MessageInterface(account_sid, auth_token)
-    interface.loopMessage(cell, proxy, words, 100)
+    interface.loopMessage(cell, proxy, words, 200)
